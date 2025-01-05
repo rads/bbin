@@ -28,7 +28,7 @@
       (is (= `{~'http-server ~maven-lib} (tu/run-ls))))))
 
 (def upgraded-lib
-  (assoc-in maven-lib [:coords :mvn/version] "0.1.12"))
+  (assoc-in maven-lib [:coords :mvn/version] "0.1.13"))
 
 (deftest upgrade-maven-jar-test
   (testing "upgrade (maven jar)"
@@ -42,4 +42,4 @@
       (is (fs/exists? (fs/file (dirs/bin-dir nil) (name (:lib upgraded-lib)))))
       (is (str/starts-with? (tu/run-bin-script (:lib upgraded-lib) "--help")
                             help-text))
-      (is (= `{~'http-server ~upgraded-lib} (tu/run-ls))))))
+      (is (= {'http-server upgraded-lib} (tu/run-ls))))))
